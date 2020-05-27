@@ -1,7 +1,17 @@
-local CorruptionProcs = LibStub("AceAddon-3.0"):NewAddon("MyAddon")
+local CP = LibStub("AceAddon-3.0"):NewAddon("MyAddon", "AceEvent-3.0")
 
-function CorruptionProcs:OnInitialize()
+function CP:OnInitialize()
 	 print("Corruption Procs activated with AceAddon")
+end
+
+function CP:OnEnable()
+    self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+end
+
+function CP:COMBAT_LOG_EVENT_UNFILTERED()
+	 local _, event, _,_,_,_,_, destGUID, _,_,_, spellId, spellName = CombatLogGetCurrentEventInfo()
+	 print("new event")
+	 print(spellName)
 end
 
 function ShowFrame()
