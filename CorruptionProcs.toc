@@ -1,0 +1,12 @@
+## Interface: 11302
+## Title: Corruption Procs
+## Version: v0.0
+## Notes: A UI displaying current corruption procs.
+## Author: Armani Ferrante
+## DefaultState: Enabled
+## OptionalDeps: LibStub, Ace3
+
+Libs\AceAddon-3.0\AceAddon-3.0.xml
+
+CorruptionProcs.lua
+CorruptionProcs.xml
