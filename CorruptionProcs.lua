@@ -13,10 +13,10 @@ local SURGING_VITALITY = "Surging Vitality"
 -- Frame of the aura we want to track.
 local SV_BAR_FRAME = CreateFrame("frame","MyAddonFrame")
 SV_BAR_FRAME:SetBackdrop({
-			--				 bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
-			bgFile="Interface\\Buttons\\GreenGradient",
-			tile=1, tileSize=32, edgeSize=32,
-			insets={left=11, right=12, top=12, bottom=11}
+      --         bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
+      bgFile="Interface\\Buttons\\GreenGradient",
+      tile=1, tileSize=32, edgeSize=32,
+      insets={left=11, right=12, top=12, bottom=11}
 })
 SV_BAR_FRAME:SetWidth(440)
 SV_BAR_FRAME:SetHeight(50)
@@ -38,49 +38,49 @@ SV_BAR_FRAME:Hide()
 -- AceAddon lifecycle methods.
 
 function CP:OnInitialize()
-	 print("Corruption Procs activated.")
+   print("Corruption Procs activated.")
 end
 
 function CP:OnEnable()
-	 self:RegisterEvent("UNIT_AURA")
+   self:RegisterEvent("UNIT_AURA")
 end
 
 -- AceEvents.
 
 function CP:UNIT_AURA(event, unitID)
-	 if unitID == ME then
-			-- Collect all the auras active in the new timestep.
-			local new_active_auras = {}
-			local index = 1
-			name, icon, count, debuffClass, duration, expirationTime, unitCaster, isStealable, _, spellId = UnitAura(ME, index)
-			while(name) do
-				 new_active_auras[name] = true
-				 index = index + 1
-				 name, icon, count, debuffClass, duration, expirationTime, unitCaster, isStealable, _, spellId = UnitAura(ME, index)
-			end
+   if unitID == ME then
+      -- Collect all the auras active in the new timestep.
+      local new_active_auras = {}
+      local index = 1
+      name, icon, count, debuffClass, duration, expirationTime, unitCaster, isStealable, _, spellId = UnitAura(ME, index)
+      while(name) do
+         new_active_auras[name] = true
+         index = index + 1
+         name, icon, count, debuffClass, duration, expirationTime, unitCaster, isStealable, _, spellId = UnitAura(ME, index)
+      end
 
-			-- Compare the new auras against the auras against the previous timestep.
-			if new_active_auras[SURGING_VITALITY] then
-				 if ACTIVE_AURAS[SURGING_VITALITY] == nil then
-						enableSurgingVitality()
-				 end
-			else
-				 if ACTIVE_AURAS[SURGING_VITALITY] then
-						disableSurgingVitality()
+      -- Compare the new auras against the auras against the previous timestep.
+      if new_active_auras[SURGING_VITALITY] then
+         if ACTIVE_AURAS[SURGING_VITALITY] == nil then
+            enableSurgingVitality()
          end
-			end
+      else
+         if ACTIVE_AURAS[SURGING_VITALITY] then
+            disableSurgingVitality()
+         end
+      end
 
-			-- Set the currently active auras for the next timestep to use.
-			ACTIVE_AURAS = new_active_auras
-	 end
+      -- Set the currently active auras for the next timestep to use.
+      ACTIVE_AURAS = new_active_auras
+   end
 end
 
 -- Utilities.
 
 function enableSurgingVitality()
-	 SV_BAR_FRAME:Show()
+   SV_BAR_FRAME:Show()
 end
 
 function disableSurgingVitality()
-	 SV_BAR_FRAME:Hide()
+   SV_BAR_FRAME:Hide()
 end
